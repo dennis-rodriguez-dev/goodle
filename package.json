@@ -1,0 +1,15 @@
+{
+  "name": "goodle-dynamic",
+  "version": "1.0.0",
+  "description": "A dynamic, database-backed timed trivia quiz (goodle-style) with accounts, saved scores and an admin question editor.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "MIT",
+  "private": true
+}

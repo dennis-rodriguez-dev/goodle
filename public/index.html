@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>goodle™</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <noscript><p class="noscript">JavaScript is required to use this application. Please enable it in your browser settings.</p></noscript>
+
+  <main id="app">
+    <!-- Login / Register -->
+    <section id="screen-auth" hidden>
+      <h1 class="brand">goodle<sup>™</sup></h1>
+      <div class="tabs" role="tablist">
+        <button type="button" id="tab-login" class="tab active" role="tab" aria-selected="true">Log in</button>
+        <button type="button" id="tab-register" class="tab" role="tab" aria-selected="false">Register</button>
+      </div>
+      <form id="auth-form" autocomplete="on">
+        <label>Username
+          <input id="auth-username" name="username" autocomplete="username" required minlength="3" maxlength="20">
+        </label>
+        <label>Password
+          <input id="auth-password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="72">
+        </label>
+        <p id="auth-hint" class="hint" hidden>3-20 letters, numbers or underscores. Password: at least 8 characters.</p>
+        <p id="auth-error" class="error" role="alert" hidden></p>
+        <button type="submit" id="auth-submit" class="primary">Continue</button>
+      </form>
+    </section>
+
+    <!-- Home -->
+    <section id="screen-home" hidden>
+      <h1 class="brand">goodle<sup>™</sup></h1>
+      <p id="home-greeting" class="muted center"></p>
+      <div class="stack">
+        <button type="button" id="btn-start" class="primary big">Start</button>
+        <button type="button" id="btn-settings">Settings</button>
+        <button type="button" id="btn-scores">Scores</button>
+        <button type="button" id="btn-feedback">Any feedback?</button>
+        <button type="button" id="btn-admin" hidden>Admin</button>
+        <button type="button" id="btn-logout" class="ghost">Logout</button>
+      </div>
+      <p id="home-error" class="error center" role="alert" hidden></p>
+    </section>
+
+    <!-- Settings -->
+    <section id="screen-settings" hidden>
+      <h2>Settings</h2>
+      <form id="settings-form">
+        <label class="check"><input type="checkbox" id="set-scoring"> Enable Scoring</label>
+        <label class="check"><input type="checkbox" id="set-dark"> Dark Mode</label>
+        <label>Desired Time per Question (seconds)
+          <input type="number" id="set-seconds" min="5" max="120" step="1" required>
+        </label>
+        <label>Number of Questions <span id="set-max" class="muted"></span>
+          <input type="number" id="set-count" min="1" max="50" step="1" required>
+        </label>
+        <p id="settings-status" class="ok" role="status" hidden>✔ Settings Saved!</p>
+        <p id="settings-error" class="error" role="alert" hidden></p>
+        <div class="row">
+          <button type="submit" class="primary">Save</button>
+          <button type="button" class="back">Back</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Quiz -->
+    <section id="screen-quiz" hidden>
+      <div class="quiz-head">
+        <span id="quiz-progress"></span>
+        <span id="quiz-timer" class="timer" aria-live="off">00:00</span>
+      </div>
+      <div class="bar"><div id="quiz-bar" class="bar-fill"></div></div>
+      <h2 id="quiz-text" class="question"></h2>
+      <div id="quiz-options" class="options" role="radiogroup"></div>
+      <div class="row">
+        <button type="button" id="quiz-submit" class="primary" disabled>Submit</button>
+        <button type="button" id="quiz-quit" class="ghost">Quit</button>
+      </div>
+      <p id="quiz-error" class="error" role="alert" hidden></p>
+    </section>
+
+    <!-- Result -->
+    <section id="screen-result" hidden>
+      <h2>RESULT</h2>
+      <p id="result-score" class="big-score"></p>
+      <p id="result-points" class="center"></p>
+      <p id="result-note" class="muted center" hidden></p>
+      <ol id="result-review" class="review"></ol>
+      <div class="row">
+        <button type="button" id="result-again" class="primary">Try Again</button>
+        <button type="button" id="result-quit">Quit</button>
+      </div>
+      <p id="result-error" class="error center" role="alert" hidden></p>
+    </section>
+
+    <!-- Scores -->
+    <section id="screen-scores" hidden>
+      <h2>Scores</h2>
+      <h3>Your recent results</h3>
+      <table id="history-table">
+        <thead><tr><th>When</th><th>Correct</th><th>Points</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p id="history-empty" class="muted" hidden>No scored games yet. Enable scoring in Settings and play one.</p>
+      <h3>Leaderboard</h3>
+      <table id="board-table">
+        <thead><tr><th>#</th><th>Player</th><th>Best</th><th>Games</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p id="board-empty" class="muted" hidden>Nobody is on the board yet.</p>
+      <div class="row"><button type="button" class="back">Back</button></div>
+    </section>
+
+    <!-- Feedback -->
+    <section id="screen-feedback" hidden>
+      <h2>Any feedback?</h2>
+      <form id="feedback-form">
+        <label>Your message
+          <textarea id="feedback-text" rows="5" maxlength="1000" required></textarea>
+        </label>
+        <p id="feedback-status" class="ok" role="status" hidden>✔ Thanks, feedback sent!</p>
+        <p id="feedback-error" class="error" role="alert" hidden></p>
+        <div class="row">
+          <button type="submit" class="primary">Send</button>
+          <button type="button" class="back">Back</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Admin -->
+    <section id="screen-admin" hidden>
+      <h2>Admin</h2>
+      <form id="q-form">
+        <h3 id="q-form-title">Add a question</h3>
+        <input type="hidden" id="q-id">
+        <label>Question
+          <input id="q-text" maxlength="300" required>
+        </label>
+        <fieldset>
+          <legend>Options (pick the correct one)</legend>
+          <div class="opt-row"><input type="radio" name="q-correct" value="0" checked aria-label="Option 1 is correct"><input id="q-opt-0" maxlength="120" placeholder="Option 1" required></div>
+          <div class="opt-row"><input type="radio" name="q-correct" value="1" aria-label="Option 2 is correct"><input id="q-opt-1" maxlength="120" placeholder="Option 2" required></div>
+          <div class="opt-row"><input type="radio" name="q-correct" value="2" aria-label="Option 3 is correct"><input id="q-opt-2" maxlength="120" placeholder="Option 3 (optional)"></div>
+          <div class="opt-row"><input type="radio" name="q-correct" value="3" aria-label="Option 4 is correct"><input id="q-opt-3" maxlength="120" placeholder="Option 4 (optional)"></div>
+        </fieldset>
+        <label>Category (optional)
+          <input id="q-category" maxlength="40">
+        </label>
+        <p id="q-error" class="error" role="alert" hidden></p>
+        <div class="row">
+          <button type="submit" class="primary" id="q-save">Add question</button>
+          <button type="button" id="q-cancel" hidden>Cancel edit</button>
+        </div>
+      </form>
+
+      <h3>Questions (<span id="q-count">0</span>)</h3>
+      <ul id="q-list" class="qlist"></ul>
+
+      <h3>Feedback inbox</h3>
+      <ul id="fb-list" class="qlist"></ul>
+      <p id="fb-empty" class="muted" hidden>No feedback yet.</p>
+
+      <div class="row"><button type="button" class="back">Back</button></div>
+    </section>
+  </main>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

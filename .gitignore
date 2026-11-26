@@ -1,0 +1,22 @@
+# Local SQLite database (users, scores, feedback). Never commit this.
+data/
+
+# Dependencies (this project has none yet, but keep it safe)
+node_modules/
+
+# Environment files and secrets
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Handoff notes from the build session
+HANDOFF.md
